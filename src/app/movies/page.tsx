@@ -2247,7 +2247,6 @@ const movie = {
 };
 
 const MoviesListing = () => {
-  console.log(movieJSON.length);
   return (
     <Box sx={{ color: "red" }}>
       <h1>Movie Listing</h1>
@@ -2285,7 +2284,12 @@ const MoviesListing = () => {
                   </CardContent>
                 </CardActionArea>
                 <CardActions sx={{ justifyContent: "center" }}>
-                  <Link href={`movies/${movie.contentId}`}>
+                  <Link href={{
+                    pathname:`movies/${movie.contentId}`,
+                    query:{
+                      movieCode:movie.languageFormatGroups[0]?.fmtGrpId
+                    }
+                  }}>
                   <Button size="small" color="primary" variant="contained" sx={{mt:'auto'}}>
                     Book Ticket
                   </Button>
