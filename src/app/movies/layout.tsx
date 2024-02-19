@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material";
 import React from "react";
 import type { Metadata } from "next";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "Movies List",
@@ -12,11 +13,11 @@ export default function MoviesLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <Grid container>
-      <Grid item xs={2}></Grid>
-      <Grid item xs={10}>
-        {children}
+        <Grid item xs={2}></Grid>
+        <Grid item xs={10}>
+          {children}
+        </Grid>
+        <Grid item xs={2}></Grid>
       </Grid>
-      <Grid item xs={2}></Grid>
-    </Grid>
   );
 }
