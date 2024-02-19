@@ -1,6 +1,7 @@
 import CenteredBox from "@/components/CenteredBox";
 import { Box, Typography } from "@mui/material";
 import React from "react";
+import ChairIcon from "@mui/icons-material/Chair";
 
 type SeatLayout = {
   GridSeatNum: number;
@@ -32,14 +33,16 @@ const SeatBox = ({
     sx={{
       height: "30px",
       width: "30px",
-      border: "1px solid black",
       borderRadius: "5px",
-      backgroundColor: seatStatus === "1" ? "grey" : "skyblue",
-      opacity: seatStatus === "1" ? "0.5" : 1,
       visibility: !shouldDisplay ? "hidden" : "initial",
     }}
   >
-    {seatNumber}
+    <ChairIcon
+      sx={{
+        opacity: seatStatus === "1" ? "0.5" : 1,
+        color: seatStatus === "1" ? "#808080" : "white",
+      }}
+    />
   </CenteredBox>
 );
 
@@ -73,7 +76,6 @@ const MovieSeats = async ({ params, searchParams }: MovieSeats) => {
       socialDistancing: 1,
     },
   });
-
 
   let response = await fetch(
     `https://movies-tickets.paytm.com/v1/movies/select-seat?version=3&site_id=6&channel=web&child_site_id=370`,
@@ -119,45 +121,78 @@ const MovieSeats = async ({ params, searchParams }: MovieSeats) => {
         gap: "10px",
         flexDirection: "column",
         minHeight: "100vh",
+        backgroundColor: "#0f0f0f",
+        color: "white",
+        padding: "10px",
       }}
     >
-      <h1>Seats</h1>
-      {seatColsArr?.map((col, colIdx) => (
-        <Box
-          key={colIdx}
-          sx={{ display: "flex", gap: "10px", flexDirection: "row" }}
-        >
-          <Box sx={{ display: "flex", gap: "10px", flexDirection: "column" }}>
-            {/* <Typography>{`Row : ${colIdx + 1}`}</Typography> */}
-            {col?.map((rows: [], rowIdx: number) => (
-              <>
-                <CenteredBox
-                  key={rowIdx}
-                  sx={{ gap: "10px", flexDirection: "row" }}
-                >
-                  <Typography sx={{ width: "10px", fontSize: "10px" }}>
-                    {rowHash.get(`${colIdx}-${rowIdx}`)?.PhyRowId}
-                  </Typography>
-                  {rows?.map((seat, seatIdx) => {
-                    let param = `${colIdx}-${rowIdx}-${seatIdx}`;
-                    let seatInfo = seatHash.get(param);
-                    return (
-                      <SeatBox
-                        key={seatIdx}
-                        seatNumber={seatInfo?.displaySeatNumber}
-                        shouldDisplay={seatHash.has(param)}
-                        seatStatus={seatInfo?.SeatStatus}
-                      />
-                    );
-                  })}
-                </CenteredBox>
-              </>
-            ))}
+     <Box>Seats</Box>
+        {seatColsArr?.map((col, colIdx) => (
+          <Box
+            key={colIdx}
+            sx={{ display: "flex", gap: "10px", flexDirection: "row" }}
+          >
+            <Box sx={{ display: "flex", gap: "10px", flexDirection: "column" }}>
+              {/* <Typography>{`Row : ${colIdx + 1}`}</Typography> */}
+              {col?.map((rows: [], rowIdx: number) => (
+                <>
+                  <CenteredBox
+                    key={rowIdx}
+                    sx={{ gap: "10px", flexDirection: "row" }}
+                  >
+                    <Typography
+                      sx={{ width: "10px", fontSize: "10px", color: "grey" }}
+                    >
+                      {rowHash.get(`${colIdx}-${rowIdx}`)?.PhyRowId}
+                    </Typography>
+                    {rows?.map((seat, seatIdx) => {
+                      let param = `${colIdx}-${rowIdx}-${seatIdx}`;
+                      let seatInfo = seatHash.get(param);
+                      return (
+                        <SeatBox
+                          key={seatIdx}
+                          seatNumber={seatInfo?.displaySeatNumber}
+                          shouldDisplay={seatHash.has(param)}
+                          seatStatus={seatInfo?.SeatStatus}
+                        />
+                      );
+                    })}
+                  </CenteredBox>
+                </>
+              ))}
+            </Box>
           </Box>
-        </Box>
-      ))}
+        ))}
+        <Box
+        className="screen"
+        sx={{
+          border: "1px solid white",
+          borderTop: "10px",
+          borderBottomRightRadius: "100px",
+          borderBottomLeftRadius: "100px",
+          boxShadow: "rgb(255 255 255 / 15%) 0px -40px 80px 0px",
+          width: "734px",
+          height: "100px",
+        }}
+      ></Box>
     </CenteredBox>
   );
 };
 
 export default MovieSeats;
+
+/* 
+<Box
+        className="screen"
+        sx={{
+          border: "1px solid white",
+          borderTop: "10px",
+          borderBottomRightRadius: "100px",
+          borderBottomLeftRadius: "100px",
+          boxShadow: "rgb(255 255 255 / 15%) 0px -40px 80px 0px",
+          width: "734px",
+          height: "100px",
+        }}
+      ></Box>
+
+*/

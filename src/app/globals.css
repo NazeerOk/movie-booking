@@ -3,7 +3,7 @@
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
-    "Fira Mono", "Droid Sans Mono", "Courier New", monospace; 
+    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -52,13 +52,7 @@ body {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+
 }
 
 a {
@@ -70,4 +64,11 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+.active-nav-link{
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: red;
+  text-decoration-thickness: 3px;
 }
