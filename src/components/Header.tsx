@@ -1,53 +1,31 @@
 "use client";
 
-import MovieBanner from "@/app/movies/MovieBanner";
+import Logo from "../assests/logo.png";
 import { Box } from "@mui/material";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import Image from "next/image";
+import "./header.css";
 
 const Header = () => {
   const pathName = usePathname();
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <Box sx={{ position: "relative",zIndex:1 }}>
-        <MovieBanner />
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          p: 2,
-          position: "absolute",
-          top: 0,
-          zIndex:2,
-          width:'100%',
-          color:'white',
-          backdropFilter:'blur(1px)'
-        }}
-      >
-        <Box>
-          <p>Logo</p>
-        </Box>
-        <Box>
+    <Box>
+      <Box className="header">
+        <a href="#" className="logo">
+          <Image src={Logo} alt="logo" height={70} width={70} />
+        </a>
+        <nav className="navbar">
           <Link
             href={"/movies"}
             className={pathName === "/movies" ? "active-nav-link" : "nav-link"}
           >
             Home
           </Link>
-        </Box>
-        <Box>
-          <p>Location</p>
-        </Box>
+          <a href="#">Location</a>
+        </nav>
       </Box>
     </Box>
   );

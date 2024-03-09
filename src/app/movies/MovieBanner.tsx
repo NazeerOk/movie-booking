@@ -1,18 +1,13 @@
 "use client";
 import React from "react";
-
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
-// import required modules
-import { EffectFade, Navigation, Pagination } from "swiper/modules";
-import Image from "next/image";
+import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { Box } from "@mui/material";
+import "./movieBanner.css";
 
 const bannerResponse = {
   page_id: 58177,
@@ -44,7 +39,7 @@ const bannerResponse = {
               source: "storefrontFallback",
               seourl: "https://ticketnew.com/movies/x-movie-detail-157722",
               image_url:
-                "https://assetscdn1.paytm.com/images/catalog/view_item/2491597/1707459414970.jpg",
+                "https://assetscdn1.paytm.com/images/catalog/view_item/2491597/1707459414970.jpg?format=webp&imwidth=1024",
               item_id: 0,
               priority: 0,
               reason: "SF|ws-fallback|NONLOGGEDIN|no-content",
@@ -57,7 +52,7 @@ const bannerResponse = {
               source: "storefrontFallback",
               seourl: "https://ticketnew.com/movies/x-movie-detail-169320",
               image_url:
-                "https://assetscdn1.paytm.com/images/catalog/view_item/2491904/1707301240597.jpg",
+                "https://assetscdn1.paytm.com/images/catalog/view_item/2491904/1707301240597.jpg?format=webp&imwidth=1024",
               item_id: 0,
               priority: 0,
               reason: "SF|ws-fallback|NONLOGGEDIN|no-content",
@@ -70,7 +65,7 @@ const bannerResponse = {
               source: "storefrontFallback",
               seourl: "https://ticketnew.com/movies/x-movie-detail-168955",
               image_url:
-                "https://assetscdn1.paytm.com/images/catalog/view_item/2491827/1707297169055.jpg",
+                "https://assetscdn1.paytm.com/images/catalog/view_item/2491827/1707297169055.jpg?format=webp&imwidth=1024",
               item_id: 0,
               priority: 0,
               reason: "SF|ws-fallback|NONLOGGEDIN|no-content",
@@ -83,7 +78,7 @@ const bannerResponse = {
               source: "storefrontFallback",
               seourl: "https://ticketnew.com/movies/x-movie-detail-166927",
               image_url:
-                "https://assetscdn1.paytm.com/images/catalog/view_item/2476185/1706857499433.jpg",
+                "https://assetscdn1.paytm.com/images/catalog/view_item/2476185/1706857499433.jpg?format=webp&imwidth=1024",
               item_id: 0,
               priority: 0,
               reason: "SF|ws-fallback|NONLOGGEDIN|no-content",
@@ -114,31 +109,36 @@ const bannerResponse = {
 };
 
 const MovieBanner = () => {
+  const pagination = {
+    clickable: true,
+    renderBullet: function (index: number, className: string) {
+      return '<span class="' + className + '">' + (index + 1) + "</span>";
+    },
+  };
   return (
-    <Box>
+    <Box sx={{ mt: 7, mr: 7 }}>
       <Swiper
         spaceBetween={30}
         effect={"fade"}
         navigation={true}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[EffectFade, Navigation, Pagination]}
+        pagination={pagination}
+        modules={[EffectFade, Navigation, Pagination, Autoplay]}
         className="mySwiper"
-        style={{
-            background:"linear-gradient(blue, #000000)"
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
         }}
       >
         {bannerResponse.page[0].views[0].items.map((banner) => (
           <SwiperSlide key={banner.id}>
-            <Image
-              src={banner.image_url}
-              alt={banner.name}
-              width={0}
-              height={0}
-              sizes="100vw"
-              style={{ width: "100%", height: "auto" }}
-            />
+            <div
+              style={{
+                width: "100%",
+                height: "240px",
+                background: `linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(0,0,0,1)), url(${banner.image_url})`,
+                backgroundSize: "100% 100%",
+              }}
+            ></div>
           </SwiperSlide>
         ))}
       </Swiper>

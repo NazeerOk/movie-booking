@@ -1,13 +1,6 @@
 import {
   Box,
-  Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
   Grid,
-  Typography,
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -264,83 +257,44 @@ const MovieCard = ({
   rating?: string;
 }) => {
   return (
-    <div
-      className="module"
-      style={{ background: `url(${img})`, backgroundSize: "100% 100%" }}
-    >
-      <header style={{ textAlign: "center" }}>
-        <h3>{title}</h3>
-      </header>
-    </div>
+    <>
+      <div
+        className="module"
+        style={{
+          background: `linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(0,0,0,1)), url(${img})`,
+          backgroundSize: "100% 100%",
+        }}
+      >
+        
+      </div>
+      <div className="module-movie-details">
+      <h3>{title}</h3>
+      </div>
+    </>
   );
 };
 
 const MoviesListing = () => {
   return (
-    <Box sx={{ color: "red" }}>
-      <h1>Movie Listing</h1>
+    <>
+    <Box>
+          <MovieBanner />
+        </Box>
+      <Box sx={{ color: "white", mt: 5 }}>
+      <h1 className="title-section">New Movies</h1>
       <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <h1>Filters</h1>
-        </Grid>
         <Grid
           item
-          xs={9}
+          xs={12}
           sx={{
             display: "flex",
             flexWrap: "wrap",
-            gap: "10px",
+            gap: "20px",
             flexDirection: "row",
           }}
         >
           {movieJSON.map((movie, idx) => (
             <>
-              {/* <Card sx={{ maxWidth: 345, height: "fit-content" }}>
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    width={"300"}
-                    height={"300"}
-                    image={movie.imgPath}
-                    alt="green iguana"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {movie.label}
-                    </Typography>
-                    <Box display={"flex"}>
-                      <Typography variant="body2" color="text.secondary">
-                        {movie.censor}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {"."}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {movie.languageFormatGroups?.map((lang) => lang.lang)}
-                      </Typography>
-                    </Box>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions sx={{ justifyContent: "center" }}>
-                  <Link
-                    href={{
-                      pathname: `movies/${movie.contentId}`,
-                      query: {
-                        movieCode: movie.languageFormatGroups[0]?.fmtGrpId,
-                      },
-                    }}
-                  >
-                    <Button
-                      size="small"
-                      color="primary"
-                      variant="contained"
-                      sx={{ mt: "auto" }}
-                    >
-                      Book Ticket
-                    </Button>
-                  </Link>
-                </CardActions>
-              </Card> */}
               <Link
                 href={{
                   pathname: `movies/${movie.contentId}`,
@@ -356,6 +310,8 @@ const MoviesListing = () => {
         </Grid>
       </Grid>
     </Box>
+    </>
+   
   );
 };
 
