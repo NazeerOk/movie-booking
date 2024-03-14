@@ -2,6 +2,7 @@ import ShowTimeTooltip from "@/components/ShowTooltip";
 import { Box, Chip, Grid, Paper, Typography } from "@mui/material";
 import Link from "next/link";
 import React from "react";
+import DoneIcon from "@mui/icons-material/Done";
 
 type MovieShow = {
   id: number;
@@ -58,18 +59,37 @@ const MovieTheatre = ({
   screenFormat,
 }: MovieTheatre) => {
   return (
-    <Box>
+    <Box sx={{ color: "white", mt: 2 }}>
       <Grid container>
         <Grid item xs={5}>
           <Typography variant="h5">{theatre.name}</Typography>
           <Box>
-            <Chip label="Get Directions" variant="outlined" />
-            <Chip label="More info" variant="outlined" />
+            <Chip
+              label="Get Directions"
+              variant="outlined"
+              sx={{ color: "white" }}
+            />
+            <Chip
+              label="More info"
+              variant="outlined"
+              sx={{ color: "white" }}
+            />
           </Box>
-          <Box>
-            <Typography>Parking</Typography>
-            <Typography>Mobile Ticket</Typography>
-            <Typography>Online Food</Typography>
+          <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            {["Parking", "Mobile Ticket", "Online Food"].map((val) => (
+              <div
+                key={val}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Typography sx={{ color: "gray" }}>
+                  <DoneIcon sx={{ fontSize: "10px" }} /> {val}
+                </Typography>
+              </div>
+            ))}
           </Box>
         </Grid>
         <Grid item xs={7} display={"flex"} flexDirection={"row"} gap={"10px"}>
@@ -80,14 +100,14 @@ const MovieTheatre = ({
               <ShowTimeTooltip areas={show.areas} position="top">
                 <Link
                   href={{
-                    pathname:`/movies/seats/${movieId}?`,
-                    query:{
+                    pathname: `/movies/seats/${movieId}?`,
+                    query: {
                       cinemaId,
                       providerId,
                       screenFormat,
                       moviecode,
-                      sessionId:show.sid
-                    }
+                      sessionId: show.sid,
+                    },
                   }}
                 >
                   <Paper
@@ -130,14 +150,11 @@ const MovieTheatre = ({
   );
 };
 
-const MovieShows = async ({movieId}:{
-  movieId:string
-}) => {
+const MovieShows = async ({ movieId }: { movieId: string }) => {
   let response = await fetch(
     `https://apiproxy.paytm.com/v3/movies/search/movie?meta=1&reqData=1&city=bengaluru&movieCode=${movieId}&version=3&site_id=6&channel=web&child_site_id=370&date=2024-02-19`
   );
   const moviesShowsResponse = await response.json();
-  
 
   return (
     <Box>

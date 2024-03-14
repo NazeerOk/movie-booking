@@ -20,24 +20,3 @@
   transform: rotateX(-45deg);
   box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
 }
-
-
-.title-section{
-  position: relative;
-}
-
-.title-section::after {
-  position: absolute;
-  top: 50%;
-  right: 4%;
-  content: "";
-  display: block;
-  height: 3px;
-  width: 80%;
-  background: linear-gradient(
-    to right,
-    rgba(204, 0, 0, 1) 0%,
-    rgba(204, 0, 0, 0.5) 49%,
-    rgba(204, 0, 0, 0) 100%
-  );
-}

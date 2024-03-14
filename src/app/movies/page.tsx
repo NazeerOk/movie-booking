@@ -1,11 +1,9 @@
-import {
-  Box,
-  Grid,
-} from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import "./movies.css";
 import MovieBanner from "./MovieBanner";
+import TitleSection from "@/components/TitleSection";
 
 const movieJSON = [
   {
@@ -264,11 +262,9 @@ const MovieCard = ({
           background: `linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(0,0,0,1)), url(${img})`,
           backgroundSize: "100% 100%",
         }}
-      >
-        
-      </div>
+      ></div>
       <div className="module-movie-details">
-      <h3>{title}</h3>
+        <h3>{title}</h3>
       </div>
     </>
   );
@@ -277,41 +273,40 @@ const MovieCard = ({
 const MoviesListing = () => {
   return (
     <>
-    <Box>
-          <MovieBanner />
-        </Box>
+      <Box>
+        <MovieBanner />
+      </Box>
       <Box sx={{ color: "white", mt: 5 }}>
-      <h1 className="title-section">New Movies</h1>
-      <Grid container spacing={2}>
-        <Grid
-          item
-          xs={12}
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "20px",
-            flexDirection: "row",
-          }}
-        >
-          {movieJSON.map((movie, idx) => (
-            <>
-              <Link
-                href={{
-                  pathname: `movies/${movie.contentId}`,
-                  query: {
-                    movieCode: movie.languageFormatGroups[0]?.fmtGrpId,
-                  },
-                }}
-              >
-                <MovieCard img={movie.imgPath} title={movie.label} />
-              </Link>
-            </>
-          ))}
+        <TitleSection label="New Movies" />
+        <Grid container spacing={2}>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "20px",
+              flexDirection: "row",
+            }}
+          >
+            {movieJSON.map((movie, idx) => (
+              <>
+                <Link
+                  href={{
+                    pathname: `movies/${movie.contentId}`,
+                    query: {
+                      movieCode: movie.languageFormatGroups[0]?.fmtGrpId,
+                    },
+                  }}
+                >
+                  <MovieCard img={movie.imgPath} title={movie.label} />
+                </Link>
+              </>
+            ))}
+          </Grid>
         </Grid>
-      </Grid>
-    </Box>
+      </Box>
     </>
-   
   );
 };
 
